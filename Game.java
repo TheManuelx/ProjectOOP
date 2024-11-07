@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.spaceshooter;
+package com.mycompany.oop;
 
 /**
  *
@@ -32,6 +32,12 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     private HighScores highScores;
     private GameState gameState;
     
+    public void start() {
+        isRunning = true;
+        timer.start();
+        System.out.println("Game started. Timer running: " + timer.isRunning());
+    }
+    
     private enum GameState {
         LEVEL_SELECT, PLAYING, GAME_OVER
     }
@@ -42,10 +48,10 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         setFocusable(true);
         addKeyListener(this);
         
-        random = new Random();//random meteor
+        random = new Random();
         player = new Spaceship(WIDTH / 2, HEIGHT - 50);
-        meteors = new ArrayList<>();//Number of Meteors
-        bullets = new ArrayList<>();//Number of Bullets
+        meteors = new ArrayList<>();
+        bullets = new ArrayList<>();
         score = 0;
         level = 1;
         isRunning = false;
@@ -58,7 +64,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         timer.start();
     }
     
-    public void startLevel(int selectedLevel) {//Game Start
+    public void startLevel(int selectedLevel) {
         level = selectedLevel;
         score = 0;
         meteors.clear();
@@ -69,7 +75,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     }
     
     @Override
-    public void actionPerformed(ActionEvent e) {//Drawing
+    public void actionPerformed(ActionEvent e) {
         if (gameState == GameState.PLAYING) {
             update();
         }
@@ -85,7 +91,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     }
     
     private void updateMeteors() {
-        if (random.nextInt(100) < 5 + level) {//Add Meteor
+        if (random.nextInt(100) < 5 + level) {
             meteors.add(new Meteor(random.nextInt(WIDTH), 0));
         }
         
@@ -231,10 +237,4 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     public void keyTyped(KeyEvent e) {
         // Not used
     }
-
-    /*public void start() {
-        isRunning = true;
-        gameState = GameState.LEVEL_SELECT;
-        timer.start();
-    }*///not use
 }
